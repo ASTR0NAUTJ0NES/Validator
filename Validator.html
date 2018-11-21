@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<style>
+		div {
+			border-width: 2px;
+			border-style: solid;
+		}
+		body {
+			text-align: center;
+		}
+		#mainTable1 {
+			text-align: left;
+			padding:15px;
+			border-width:5px;
+			background-color: #ccddff;
+			border-radius:9px;
+		}
+	</style>
+	<meta charset="utf-8" />
+	<title>Assignment 3</title>
+</head>
+<body bgcolor="green">
+	<h1>Number and Phrase Evaluator!</h1>
+	<h1 id="dateTitle"></h1>
+<p id="ourDate"></p>
+<div id="mainTable1" style="border: 5px solid black; width:500;">
+<p id="integerOutput"></p>
+<p id="threeCountOutput"></p>
+<p id="wordOutput"></p>
+<p id="wordLengthOutput"></p>
+<p id="vowelCountOutput"></p>
+<p id="lastOccurrenceOutput"></p>
+</div>
+</table>
+</body>
+</html>
+<script>
+	var isInt = new RegExp(/^\+?(0|[1-9]\d*)$/);
+	var isAlpha = new RegExp(/^[a-zA-Z\s]+$/);
+	var intInput = 0;
+	var ass3Border = prompt("Please enter the border color you want for your output box: yellow, purple, or orange only");
+	if(ass3Border.toLowerCase()!=="yellow" && ass3Border.toLowerCase()!=="purple" && ass3Border.toLowerCase()!=="orange"){
+		alert("Error: color should be yellow, purple, or orange only");
+		ass3Border = "black";
+	}
+	intInput = prompt("Enter an integer in the text field");	
+	if(!isInt.test(intInput)) {
+		alert("Error: You need to enter an integer.  Click Ok to Reload and Try Again.");
+		location.reload();
+	}
+	var strInput = prompt("Enter a word in the text field, all alphabetic characters");
+	if(!isAlpha.test(strInput)) {
+		alert("Error: You need to enter alphabetic characters.  Click Ok to Reload and Try Again.");
+		location.reload();
+	}
+	var letter = prompt("Please enter a letter in the text field below");
+	if(letter==="" || letter===undefined){
+		alert("Error: You need to enter a single character.  Click Ok to Reload and Try Again.");
+		location.reload();
+	}
+	letter = letter.substring(0);
+	console.log("ass3Border: " + ass3Border);
+	document.getElementById("mainTable1").style.borderColor = ass3Border;
+	document.getElementById("integerOutput").innerHTML = "The integer entered was " + intInput;
+	if((intInput.match(/3/g)||[]).length>0)
+	{
+		document.getElementById("threeCountOutput").innerHTML = intInput + " has " + (intInput.match(/3/g)||[]).length + " three's in it";
+	}
+	else {
+		document.getElementById("threeCountOutput").innerHTML = intInput + " has no threes in it";	
+	}
+	document.getElementById("wordOutput").innerHTML = "The word entered was " + strInput;
+	document.getElementById("wordLengthOutput").innerHTML = "The length of " + strInput + " is " + strInput.length + " characters";
+	document.getElementById("vowelCountOutput").innerHTML = "The word " + strInput + " has " + (strInput.match(/[aeiou]/gi)||[]).length + " vowels in it";
+	if(strInput.lastIndexOf(letter)>=0){
+		document.getElementById("lastOccurrenceOutput").innerHTML = "The last occurence of the letter " + letter + " appears at index of " + strInput.lastIndexOf(letter) + " in the word " + strInput;		
+	}
+	else {
+		document.getElementById("lastOccurrenceOutput").innerHTML = "The letter " + letter + " was not found in the word " + strInput;		
+	}
+	var d = new Date();
+	var days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+	var monthsofTheYear = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]; 
+	document.getElementById("dateTitle").innerHTML = days[d.getDay()] + " " + monthsofTheYear[d.getMonth()] + " " + d.getDate() + ", " + d.getFullYear();	
+</script>
